@@ -14,42 +14,48 @@ public class Main extends JFrame implements ActionListener{
 	private JLabel[][] field = new JLabel[6][7];
 	private JButton[] selectors = new JButton[7];
 	private JButton[] difficultyButtons = new JButton[3];
-	private JButton restart;
-	private int fieldSize = 20;
-	private int buttonSize = 20;
-	private int distance = 5;
+	private JButton restart, setDifficultyButton;
+	private int fieldSize = 100;
+	private int buttonSize = 80;
 	private int difficultyButtonWidth = 500;
 	private int difficultyButtonHeight = 100;
 	private static int windowWidth = 1000;
 	private static int windowHeight = 1000;
 	private JPanel connectFour, difficulty;
 	
-	private Color empty = Color.white;
+	private Color selectorColor = Color.orange;
+	private Color empty = Color.gray;
 	private Color player = Color.red;
 	private Color computer = Color.yellow;
 	private Color difficultyBackground = Color.gray;
 	public Main(){
 		super("connectFour"); //Fenstername
 		JPanel connectFour = new JPanel();
-		//connectFour.setLayout(null);
+		connectFour.setLayout(null);
+		JPanel difficulty = new JPanel();
+		difficulty.setLayout(null);
+		
+		/*** playing field ***/
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButton();
 			selectors[i].setSize(buttonSize, buttonSize);
-			selectors[i].setLocation(10,distance+(buttonSize)*i);
+			selectors[i].setLocation(100+(buttonSize+30)*i,50);
 			selectors[i].addActionListener(this);
+			selectors[i].setBackground(selectorColor);
+			connectFour.add(selectors[i]);
 		}
 		for(int i=0; i<6; i++){
-			for(int j=6; j>=0; j--){
+			for(int j=0; j<7; j++){
 				field[i][j] = new JLabel();
 				field[i][j].setSize(fieldSize,fieldSize);
-				field[i][j].setLocation(distance+(fieldSize)*i-(10+buttonSize), distance+(fieldSize)*j);
+				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
 				field[i][j].setBackground(empty);
 				field[i][j].setBorder(new LineBorder (Color.darkGray));
+				field[i][j].setText(i+"+"+j);
 				connectFour.add(field[i][j]);
 			}
 		}
-		JPanel difficulty = new JPanel();
-		difficulty.setLayout(null);
+		/*** difficulty menu ***/
 		for(int i=0; i<3;i++){
 			difficultyButtons[i] = new JButton();
 			difficultyButtons[i].setBackground(difficultyBackground);
@@ -62,14 +68,13 @@ public class Main extends JFrame implements ActionListener{
 		difficultyButtons[1].setText("mittel");
 		difficultyButtons[2].setText("schwer");
 		setContentPane(difficulty);
-		System.out.println(difficultyButtons);
+		//setContentPane(connectFour);
 	}
-	@Override
 	public void actionPerformed(ActionEvent click){
 		Object source = click.getSource();
 		for(int i=0; i<3; i++){
 			if(source == difficultyButtons[i]){
-				setDifficulty(i);
+				//setDifficulty(i);
 				this.setContentPane(connectFour);
 				connectFour.revalidate();
 				connectFour.repaint();
@@ -86,13 +91,11 @@ public class Main extends JFrame implements ActionListener{
 		ConnectFourLib.printSpielfeld(System.out, feld);
 		boolean gewonnen = ConnectFourLib.gewonnen(2, feld);
 		
-
-		//Fenster generieren
-		Main window = new Main(); //führt den Konstruktor aus
-		window.setSize(windowWidth,windowHeight); //setzt die Grösse des Fensters
+		Main window = new Main();
+		window.setSize(windowWidth,windowHeight);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		window.setVisible(true); // macht das Fenster sichtbar
-		window.setLocationRelativeTo(null); //zentriert das Fenster auf dem Bildschirm
+		window.setVisible(true);
+		window.setLocationRelativeTo(null); //ceneters window on screen
 		window.setResizable(false);
 	}
 }
