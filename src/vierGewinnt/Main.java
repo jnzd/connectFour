@@ -18,8 +18,8 @@ public class Main extends JFrame implements ActionListener{
 	private int fieldSize = 20;
 	private int buttonSize = 20;
 	private int distance = 5;
-	private int difficultyButtonWidth = 50;
-	private int difficultyButtonHeight = 10;
+	private int difficultyButtonWidth = 500;
+	private int difficultyButtonHeight = 100;
 	private static int windowWidth = 1000;
 	private static int windowHeight = 1000;
 	
@@ -31,15 +31,16 @@ public class Main extends JFrame implements ActionListener{
 		JPanel connectFour = new JPanel();
 		connectFour.setLayout(null);
 		for (int i=0; i<7; i++){
-			selectors[i] = new JButton;
+			selectors[i] = new JButton();
 			selectors[i].setSize(buttonSize, buttonSize);
 			selectors[i].setLocation(10,distance+(buttonSize)*i);
 			selectors[i].addActionListener(this);
 		}
 		for(int i=0; i<6; i++){
-			for(int j=7; j>0; j--){
+			for(int j=6; j>=0; j--){
+				field[i][j] = new JLabel();
 				field[i][j].setSize(fieldSize,fieldSize);
-				field[i][j].setLocation(distance+(fieldSize)*i-10-buttonSize, distance+(fieldSize)*j);
+				field[i][j].setLocation(distance+(fieldSize)*i-(10+buttonSize), distance+(fieldSize)*j);
 				field[i][j].setBackground(empty);
 				field[i][j].setBorder(new LineBorder (Color.darkGray));
 				connectFour.add(field[i][j]);
@@ -47,15 +48,17 @@ public class Main extends JFrame implements ActionListener{
 		}
 		JPanel difficulty = new JPanel();
 		difficulty.setLayout(null);
-		difficultyButtons[0].setText("leicht");;
-		difficultyButtons[1].setText("mittel");
-		difficultyButtons[2].setText("schwer");
 		for(int i=0; i<3;i++){
+			difficultyButtons[i] = new JButton();
 			difficultyButtons[i].setSize(difficultyButtonWidth, difficultyButtonHeight);
-			difficultyButtons[i].setLocation(10, difficultyButtonHeight*i);
+			difficultyButtons[i].setLocation((windowWidth/2)-(difficultyButtonWidth/2), ((windowHeight-50)/3)*(i)-(difficultyButtonHeight/2)+130);
 			difficultyButtons[i].addActionListener(this);
 			difficulty.add(difficultyButtons[i]);			
 		}
+		difficultyButtons[0].setText("leicht");;
+		difficultyButtons[1].setText("mittel");
+		difficultyButtons[2].setText("schwer");
+		setContentPane(difficulty);
 	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
