@@ -22,14 +22,16 @@ public class Main extends JFrame implements ActionListener{
 	private int difficultyButtonHeight = 100;
 	private static int windowWidth = 1000;
 	private static int windowHeight = 1000;
+	private JPanel connectFour, difficulty;
 	
 	private Color empty = Color.white;
 	private Color player = Color.red;
 	private Color computer = Color.yellow;
+	private Color difficultyBackground = Color.gray;
 	public Main(){
 		super("connectFour"); //Fenstername
 		JPanel connectFour = new JPanel();
-		connectFour.setLayout(null);
+		//connectFour.setLayout(null);
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButton();
 			selectors[i].setSize(buttonSize, buttonSize);
@@ -50,6 +52,7 @@ public class Main extends JFrame implements ActionListener{
 		difficulty.setLayout(null);
 		for(int i=0; i<3;i++){
 			difficultyButtons[i] = new JButton();
+			difficultyButtons[i].setBackground(difficultyBackground);
 			difficultyButtons[i].setSize(difficultyButtonWidth, difficultyButtonHeight);
 			difficultyButtons[i].setLocation((windowWidth/2)-(difficultyButtonWidth/2), ((windowHeight-50)/3)*(i)-(difficultyButtonHeight/2)+130);
 			difficultyButtons[i].addActionListener(this);
@@ -59,10 +62,21 @@ public class Main extends JFrame implements ActionListener{
 		difficultyButtons[1].setText("mittel");
 		difficultyButtons[2].setText("schwer");
 		setContentPane(difficulty);
+		System.out.println(difficultyButtons);
 	}
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent click){
+		Object source = click.getSource();
+		for(int i=0; i<3; i++){
+			if(source == difficultyButtons[i]){
+				setDifficulty(i);
+				this.setContentPane(connectFour);
+				connectFour.revalidate();
+				connectFour.repaint();
+			}
+		}
+	}
+	public void setDifficulty(int difficulty){
 		
 	}
 	public static void main(String[] args){
