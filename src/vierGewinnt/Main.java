@@ -13,6 +13,7 @@ import javax.swing.border.LineBorder;
 public class Main extends JFrame implements ActionListener{
 	private JLabel[][] field = new JLabel[6][7];
 	private int[][] fieldState = new int [6][7];
+	private int level;
 	private JButton[] selectors = new JButton[7];
 	private JButton easy, medium, hard = new JButton();
 	private JButton[] difficultyButtons = new JButton[3];
@@ -104,39 +105,26 @@ public class Main extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent Click){
 		Object Source = Click.getSource();
 		if(Source == easy){
-			start("easy");
+			start(0);
 		}
 		if(Source == medium){
-			start("medium");	
+			start(1);	
 		}
 		if(Source == hard){
-			start("hard");
+			start(2);
 		}
 		if(Source == restart){
 			restart();
 		}
 		for(int i=0; i<7; i++){
 			if(Source == selectors[i]){
-				System.out.println("i: "+i);
-				for(int j=5; j>=0; j--){
-					if(j>0 && fieldState[j][i]==0 && (fieldState[j-1][i]==1||fieldState[j-1][i]==2)){
-						System.out.println("j1: "+j);
-						fieldState[j][i] = 1;
-						field[j][i].setBackground(player);
-						if(j==5){
-							selectors[i].setBackground(inactive);
-							selectors[i].setEnabled(false);
-						}
-					}else if(j==0 && fieldState[j][i]==0){
-						System.out.println("j2: "+j);
-						fieldState[j][i] = 1;
-						field[j][i].setBackground(player);
-					}
-				}
+				playerTurn(i);
+				computerTurn(level);
 			}
 		}
 	}
-	public void start(String difficulty){
+	public void start(int difficulty){
+		level = difficulty;
 		this.setContentPane(connectFour);
 		connectFour.revalidate();
 		connectFour.repaint();
@@ -145,6 +133,27 @@ public class Main extends JFrame implements ActionListener{
 		this.setContentPane(difficulty);
 		difficulty.revalidate();
 		difficulty.repaint();		
+	}
+	public void playerTurn(int i){
+		System.out.println("i: "+i);
+		for(int j=5; j>=0; j--){
+			if(j>0 && fieldState[j][i]==0 && (fieldState[j-1][i]==1||fieldState[j-1][i]==2)){
+				System.out.println("j1: "+j);
+				fieldState[j][i] = 1;
+				field[j][i].setBackground(player);
+				if(j==5){
+					selectors[i].setBackground(inactive);
+					selectors[i].setEnabled(false);
+				}
+			}else if(j==0 && fieldState[j][i]==0){
+				System.out.println("j2: "+j);
+				fieldState[j][i] = 1;
+				field[j][i].setBackground(player);
+			}
+		}
+	}
+	public void computerTurn(int difficulty){
+		
 	}
 	public static void main(String[] args){
 		int[][] feld = new int[6][7];
