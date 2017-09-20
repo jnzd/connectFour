@@ -83,7 +83,7 @@ public class Main extends JFrame implements ActionListener{
 				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
 				field[i][j].setBackground(empty);
 				field[i][j].setBorder(new LineBorder (Color.darkGray));
-				field[i][j].setText(i+"+"+j);
+				field[i][j].setText(i+" | "+j);
 				connectFour.add(field[i][j]);
 			}
 		}
@@ -117,8 +117,10 @@ public class Main extends JFrame implements ActionListener{
 		}
 		for(int i=0; i<7; i++){
 			if(Source == selectors[i]){
+				System.out.println("i: "+i);
 				for(int j=5; j>=0; j--){
-					if(j>0 && (fieldState[j][i]-1==1||fieldState[j][i]-1==2) && fieldState[j][i]==0){
+					if(j>0 && fieldState[j][i]==0 && (fieldState[j-1][i]==1||fieldState[j-1][i]==2)){
+						System.out.println("j1: "+j);
 						fieldState[j][i] = 1;
 						field[j][i].setBackground(player);
 						if(j==5){
@@ -126,6 +128,7 @@ public class Main extends JFrame implements ActionListener{
 							selectors[i].setEnabled(false);
 						}
 					}else if(j==0 && fieldState[j][i]==0){
+						System.out.println("j2: "+j);
 						fieldState[j][i] = 1;
 						field[j][i].setBackground(player);
 					}
