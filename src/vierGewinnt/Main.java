@@ -12,7 +12,7 @@ import javax.swing.border.LineBorder;
 
 public class Main extends JFrame implements ActionListener{
 	private JLabel[][] field = new JLabel[6][7];
-	private int[][] fieldState = new int [6][7];
+	private static int[][] fieldState = new int [6][7];
 	private int level;
 	private JButton[] selectors = new JButton[7];
 	private JButton easy, medium, hard = new JButton();
@@ -84,7 +84,6 @@ public class Main extends JFrame implements ActionListener{
 				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
 				field[i][j].setBackground(empty);
 				field[i][j].setBorder(new LineBorder (Color.darkGray));
-				field[i][j].setText(i+" | "+j);
 				connectFour.add(field[i][j]);
 			}
 		}
@@ -135,32 +134,45 @@ public class Main extends JFrame implements ActionListener{
 		difficulty.repaint();		
 	}
 	public void playerTurn(int i){
-		System.out.println("i: "+i);
+		int row = validMove(i);
+		fieldState[j][i] = 1;
+		field[j][i].setBackground(player);
+		ConnectFourLib.printSpielfeld(System.out, fieldState);
 		for(int j=5; j>=0; j--){
 			if(j>0 && fieldState[j][i]==0 && (fieldState[j-1][i]==1||fieldState[j-1][i]==2)){
-				System.out.println("j1: "+j);
 				fieldState[j][i] = 1;
 				field[j][i].setBackground(player);
+				ConnectFourLib.printSpielfeld(System.out, fieldState);
 				if(j==5){
 					selectors[i].setBackground(inactive);
 					selectors[i].setEnabled(false);
 				}
 			}else if(j==0 && fieldState[j][i]==0){
-				System.out.println("j2: "+j);
 				fieldState[j][i] = 1;
 				field[j][i].setBackground(player);
+				ConnectFourLib.printSpielfeld(System.out, fieldState);
 			}
 		}
 	}
 	public void computerTurn(int difficulty){
+		if(difficulty == 0){
+			int move = (int) Math.floor(Math.random()*6);
+		}else if(difficulty == 1){
+			
+		}else{
+			int move = ConnectFourLib.computerProfiSpielzug(fieldState);
+			
+		}
+	}
+	public int validMove(int column){
+		return row;
 		
 	}
 	public static void main(String[] args){
-		int[][] feld = new int[6][7];
-		int spielzug = ConnectFourLib.computerProfiSpielzug(feld);
-		feld[5][spielzug] = 2;
-		ConnectFourLib.printSpielfeld(System.out, feld);
-		boolean gewonnen = ConnectFourLib.gewonnen(2, feld);
+		int spielzug = ConnectFourLib.computerProfiSpielzug(fieldState);
+		fieldState[5][spielzug] = 2;
+		ConnectFourLib.printSpielfeld(System.out, fieldState);
+		boolean gewonnen = ConnectFourLib.gewonnen(2, fieldState);
 		
 		Main window = new Main();
 		window.setSize(windowWidth,windowHeight);
