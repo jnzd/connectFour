@@ -134,39 +134,57 @@ public class Main extends JFrame implements ActionListener{
 		difficulty.repaint();		
 	}
 	public void playerTurn(int i){
-		int row = validMove(i);
-		fieldState[j][i] = 1;
-		field[j][i].setBackground(player);
+		int row = row(i);
+		fieldState[row][i] = 1;
+		field[row][i].setBackground(player);
 		ConnectFourLib.printSpielfeld(System.out, fieldState);
 		for(int j=5; j>=0; j--){
+			int player = 1;
 			if(j>0 && fieldState[j][i]==0 && (fieldState[j-1][i]==1||fieldState[j-1][i]==2)){
-				fieldState[j][i] = 1;
-				field[j][i].setBackground(player);
-				ConnectFourLib.printSpielfeld(System.out, fieldState);
-				if(j==5){
-					selectors[i].setBackground(inactive);
-					selectors[i].setEnabled(false);
-				}
+				move(j,i,player);
 			}else if(j==0 && fieldState[j][i]==0){
-				fieldState[j][i] = 1;
-				field[j][i].setBackground(player);
-				ConnectFourLib.printSpielfeld(System.out, fieldState);
+				move(j,i,player);
 			}
 		}
 	}
 	public void computerTurn(int difficulty){
+		int computer = 2;
 		if(difficulty == 0){
-			int move = (int) Math.floor(Math.random()*6);
+			int column = (int) Math.floor(Math.random()*6);
+			int row = row(column);
+			move(row,column,computer);
 		}else if(difficulty == 1){
-			
+			int column = mediumColumn(fieldState);
+			int row = row(column);
+			move(row,column,computer);			
 		}else{
-			int move = ConnectFourLib.computerProfiSpielzug(fieldState);
-			
+			int column = ConnectFourLib.computerProfiSpielzug(fieldState);
+			int row = row(column);
+			move(row,column,computer);
 		}
 	}
-	public int validMove(int column){
-		return row;
+	public int row(int column){
+		int row = 0;
+		for(int i = 5; i>=0; i++){
+			if(fieldState[i][column] == 0){
+				row = i;
+			}
+		}
+		return row;		
+	}
+	public void move(int row, int column, int who){
+		fieldState[row][column] = who;
+		field[row][column].setBackground(player);
+		ConnectFourLib.printSpielfeld(System.out, fieldState);
+		if(row==5){
+			selectors[column].setBackground(inactive);
+			selectors[column].setEnabled(false);
+		}
 		
+	}
+	public int mediumColumn(int[][] fieldState){
+		int column = 0;
+		return column;
 	}
 	public static void main(String[] args){
 		int spielzug = ConnectFourLib.computerProfiSpielzug(fieldState);
