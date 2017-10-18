@@ -3,6 +3,7 @@ package vierGewinnt;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.border.LineBorder;
 public class Main extends JFrame implements ActionListener{
 	private JLabel[][] field = new JLabel[6][7];
 	private static int[][] fieldState = new int [6][7];
+	private static int[] rows = new int[7];
 	private int level;
 	private JButton[] selectors = new JButton[7];
 	private JButton easy, medium, hard = new JButton();
@@ -67,6 +69,7 @@ public class Main extends JFrame implements ActionListener{
 		 */
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButton();
+			selectors[i].setVisible(true);
 			selectors[i].setSize(buttonSize, buttonSize);
 			selectors[i].setLocation(110+(buttonSize+30)*i,60);
 			selectors[i].addActionListener(this);
@@ -87,7 +90,10 @@ public class Main extends JFrame implements ActionListener{
 				connectFour.add(field[i][j]);
 			}
 		}
-		/*
+		for(int i=0; i<7; i++){
+			rows[i] = 0;
+		}
+		/**
 		 * restart
 		 */
 		restart = new JButton();
@@ -118,6 +124,12 @@ public class Main extends JFrame implements ActionListener{
 		for(int i=0; i<7; i++){
 			if(Source == selectors[i]){
 				playerTurn(i);
+				try {
+					TimeUnit.SECONDS.sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				computerTurn(level);
 			}
 		}
@@ -135,17 +147,7 @@ public class Main extends JFrame implements ActionListener{
 	}
 	public void playerTurn(int i){
 		int row = row(i);
-		fieldState[row][i] = 1;
-		field[row][i].setBackground(player);
-		ConnectFourLib.printSpielfeld(System.out, fieldState);
-		for(int j=5; j>=0; j--){
-			int player = 1;
-			if(j>0 && fieldState[j][i]==0 && (fieldState[j-1][i]==1||fieldState[j-1][i]==2)){
-				move(j,i,player);
-			}else if(j==0 && fieldState[j][i]==0){
-				move(j,i,player);
-			}
-		}
+		move(row,i,1);
 	}
 	public void computerTurn(int difficulty){
 		int computer = 2;
@@ -164,12 +166,8 @@ public class Main extends JFrame implements ActionListener{
 		}
 	}
 	public int row(int column){
-		int row = 0;
-		for(int i = 5; i>=0; i++){
-			if(fieldState[i][column] == 0){
-				row = i;
-			}
-		}
+		int row = rows[column];
+		rows[column] += 1;
 		return row;		
 	}
 	public void move(int row, int column, int who){
@@ -177,10 +175,13 @@ public class Main extends JFrame implements ActionListener{
 		field[row][column].setBackground(player);
 		ConnectFourLib.printSpielfeld(System.out, fieldState);
 		if(row==5){
-			selectors[column].setBackground(inactive);
+			selectors[column].setVisible(false);
 			selectors[column].setEnabled(false);
 		}
-		
+		boolean gewonnen = ConnectFourLib.gewonnen(who, fieldState);
+		if(gewonnen){
+			System.out.println(who + " hat gewonnen");
+		}	
 	}
 	public int mediumColumn(int[][] fieldState){
 		int column = 0;
@@ -191,7 +192,6 @@ public class Main extends JFrame implements ActionListener{
 		fieldState[5][spielzug] = 2;
 		ConnectFourLib.printSpielfeld(System.out, fieldState);
 		boolean gewonnen = ConnectFourLib.gewonnen(2, fieldState);
-		
 		Main window = new Main();
 		window.setSize(windowWidth,windowHeight);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
