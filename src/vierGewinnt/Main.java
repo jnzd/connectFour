@@ -32,7 +32,6 @@ public class Main extends JFrame implements ActionListener{
 	private Color player = Color.red;
 	private Color computer = Color.yellow;
 	private Color difficultyBackground = Color.gray;
-	private Color inactive = Color.lightGray;
 	public Main(){
 		super("connectFour");
 		difficulty = new JPanel();
@@ -103,9 +102,7 @@ public class Main extends JFrame implements ActionListener{
 		restart.setLocation((windowWidth/2)-(difficultyButtonWidth/4), windowHeight-100);
 		restart.addActionListener(this);
 		connectFour.add(restart);
-		
 		setContentPane(difficulty);
-		//setContentPane(connectFour);
 	}
 	public void actionPerformed(ActionEvent Click){
 		Object Source = Click.getSource();
@@ -143,26 +140,36 @@ public class Main extends JFrame implements ActionListener{
 	public void restart(){
 		this.setContentPane(difficulty);
 		difficulty.revalidate();
-		difficulty.repaint();		
+		difficulty.repaint();
+		for (int i=0; i<7; i++){
+			selectors[i].setVisible(true);
+			selectors[i].setBackground(selectorColor);
+			rows[i] = 0;
+		}
+		for(int i=0; i<6; i++){
+			for(int j=0; j<7; j++){
+				fieldState[i][j] = 0;
+				field[i][j].setBackground(empty);
+			}
+		}
 	}
 	public void playerTurn(int i){
 		int row = row(i);
 		move(row,i,1);
 	}
 	public void computerTurn(int difficulty){
-		int computer = 2;
 		if(difficulty == 0){
 			int column = (int) Math.floor(Math.random()*6);
 			int row = row(column);
-			move(row,column,computer);
+			move(row,column,2);
 		}else if(difficulty == 1){
 			int column = mediumColumn(fieldState);
 			int row = row(column);
-			move(row,column,computer);			
+			move(row,column,2);			
 		}else{
 			int column = ConnectFourLib.computerProfiSpielzug(fieldState);
 			int row = row(column);
-			move(row,column,computer);
+			move(row,column,2);
 		}
 	}
 	public int row(int column){
@@ -171,12 +178,15 @@ public class Main extends JFrame implements ActionListener{
 		return row;		
 	}
 	public void move(int row, int column, int who){
+		Color whoColor = player;
+		if(who == 2){
+			whoColor = computer;			
+		}
 		fieldState[row][column] = who;
-		field[row][column].setBackground(player);
+		field[row][column].setBackground(whoColor);
 		ConnectFourLib.printSpielfeld(System.out, fieldState);
 		if(row==5){
 			selectors[column].setVisible(false);
-			selectors[column].setEnabled(false);
 		}
 		boolean gewonnen = ConnectFourLib.gewonnen(who, fieldState);
 		if(gewonnen){
@@ -188,10 +198,6 @@ public class Main extends JFrame implements ActionListener{
 		return column;
 	}
 	public static void main(String[] args){
-		int spielzug = ConnectFourLib.computerProfiSpielzug(fieldState);
-		fieldState[5][spielzug] = 2;
-		ConnectFourLib.printSpielfeld(System.out, fieldState);
-		boolean gewonnen = ConnectFourLib.gewonnen(2, fieldState);
 		Main window = new Main();
 		window.setSize(windowWidth,windowHeight);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
