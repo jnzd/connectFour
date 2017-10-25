@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
 public class Main extends JFrame implements ActionListener{
@@ -18,7 +19,6 @@ public class Main extends JFrame implements ActionListener{
 	private int level;
 	private JButton[] selectors = new JButton[7];
 	private JButton easy, medium, hard = new JButton();
-	private JButton[] difficultyButtons = new JButton[3];
 	private JButton restart;
 	private int fieldSize = 100;
 	private int buttonSize = 80;
@@ -84,6 +84,7 @@ public class Main extends JFrame implements ActionListener{
 				field[i][j] = new JLabel();
 				field[i][j].setSize(fieldSize,fieldSize);
 				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
+				field[i][j].setOpaque(true);
 				field[i][j].setBackground(empty);
 				field[i][j].setBorder(new LineBorder (Color.darkGray));
 				connectFour.add(field[i][j]);
@@ -121,12 +122,6 @@ public class Main extends JFrame implements ActionListener{
 		for(int i=0; i<7; i++){
 			if(Source == selectors[i]){
 				playerTurn(i);
-				try {
-					TimeUnit.SECONDS.sleep(1);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				computerTurn(level);
 			}
 		}
