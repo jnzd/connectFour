@@ -158,7 +158,7 @@ public class Main extends JFrame implements ActionListener{
 			int row = row(column);
 			move(row,column,2);
 		}else if(difficulty == 1){
-			int column = mediumColumn(fieldState);
+			int column = Intermediate.mediumColumn(fieldState);
 			int row = row(column);
 			move(row,column,2);			
 		}else{
@@ -187,10 +187,6 @@ public class Main extends JFrame implements ActionListener{
 		if(gewonnen){
 			System.out.println(who + " hat gewonnen");
 		}	
-	}
-	public int mediumColumn(int[][] fieldState){
-		int column = 0;
-		return column;
 	}
 	public static void main(String[] args){
 		Main window = new Main();
