@@ -15,7 +15,6 @@ import javax.swing.border.LineBorder;
 public class Main extends JFrame implements ActionListener{
 	private JLabel[][] field = new JLabel[6][7];
 	private static int[][] fieldState = new int [6][7];
-	private static int[] rows = new int[7];
 	private int level;
 	private JButton[] selectors = new JButton[7];
 	private JButton easy, medium, hard = new JButton();
@@ -32,6 +31,7 @@ public class Main extends JFrame implements ActionListener{
 	private Color player = Color.red;
 	private Color computer = Color.yellow;
 	private Color difficultyBackground = Color.gray;
+/******************************************************************************************************/
 	public Main(){
 		super("connectFour");
 		difficulty = new JPanel();
@@ -90,9 +90,6 @@ public class Main extends JFrame implements ActionListener{
 				connectFour.add(field[i][j]);
 			}
 		}
-		for(int i=0; i<7; i++){
-			rows[i] = 0;
-		}
 		/**
 		 * restart
 		 */
@@ -105,13 +102,14 @@ public class Main extends JFrame implements ActionListener{
 		connectFour.add(restart);
 		setContentPane(difficulty);
 	}
+/******************************************************************************************************/
 	public void actionPerformed(ActionEvent Click){
 		Object Source = Click.getSource();
 		if(Source == easy){
 			start(0);
 		}
 		if(Source == medium){
-			start(1);	
+			start(1);
 		}
 		if(Source == hard){
 			start(2);
@@ -126,12 +124,14 @@ public class Main extends JFrame implements ActionListener{
 			}
 		}
 	}
+/******************************************************************************************************/
 	public void start(int difficulty){
 		level = difficulty;
 		this.setContentPane(connectFour);
 		connectFour.revalidate();
 		connectFour.repaint();
 	}
+/******************************************************************************************************/
 	public void restart(){
 		this.setContentPane(difficulty);
 		difficulty.revalidate();
@@ -139,7 +139,6 @@ public class Main extends JFrame implements ActionListener{
 		for (int i=0; i<7; i++){
 			selectors[i].setVisible(true);
 			selectors[i].setBackground(selectorColor);
-			rows[i] = 0;
 		}
 		for(int i=0; i<6; i++){
 			for(int j=0; j<7; j++){
@@ -148,30 +147,41 @@ public class Main extends JFrame implements ActionListener{
 			}
 		}
 	}
+/******************************************************************************************************/
 	public void playerTurn(int i){
-		int row = row(i);
+		int row = row(i, fieldState);
 		move(row,i,1);
 	}
+/******************************************************************************************************/
 	public void computerTurn(int difficulty){
 		if(difficulty == 0){
-			int column = (int) Math.floor(Math.random()*6);
-			int row = row(column);
+			int column = 0;
+			int row = 6;
+			while(row > 5) {
+				column = (int) Math.floor(Math.random()*6);
+				row = row(column, fieldState);
+			}
 			move(row,column,2);
 		}else if(difficulty == 1){
 			int column = Intermediate.mediumColumn(fieldState);
-			int row = row(column);
+			int row = row(column, fieldState);
 			move(row,column,2);			
 		}else{
 			int column = ConnectFourLib.computerProfiSpielzug(fieldState);
-			int row = row(column);
+			int row = row(column, fieldState);
 			move(row,column,2);
 		}
 	}
-	public int row(int column){
-		int row = rows[column];
-		rows[column] += 1;
-		return row;		
+/******************************************************************************************************/
+	public static int row(int column, int[][] field){
+		for (int i = 0; i <=5; i++) {
+			if (field[i][column] == 0) {
+				return i;
+			}
+		}
+		return 6;
 	}
+/******************************************************************************************************/
 	public void move(int row, int column, int who){
 		Color whoColor = player;
 		if(who == 2){
@@ -180,14 +190,15 @@ public class Main extends JFrame implements ActionListener{
 		fieldState[row][column] = who;
 		field[row][column].setBackground(whoColor);
 		ConnectFourLib.printSpielfeld(System.out, fieldState);
-		if(row==5){
+		if(row>4){
 			selectors[column].setVisible(false);
 		}
-		boolean gewonnen = ConnectFourLib.gewonnen(who, fieldState);
-		if(gewonnen){
+		boolean win = ConnectFourLib.gewonnen(who, fieldState);
+		if(win){
 			System.out.println(who + " hat gewonnen");
 		}	
 	}
+/******************************************************************************************************/
 	public static void main(String[] args){
 		Main window = new Main();
 		window.setSize(windowWidth,windowHeight);
