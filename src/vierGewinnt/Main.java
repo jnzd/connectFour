@@ -13,7 +13,7 @@ import javax.swing.Timer;
 import javax.swing.border.LineBorder;
 
 public class Main extends JFrame implements ActionListener{
-	private JLabel[][] field = new JLabel[6][7];
+	private RoundJLabel[][] field = new RoundJLabel[6][7];
 	private static int[][] fieldState = new int [6][7];
 	private int level;
 	private JButton[] selectors = new JButton[7];
@@ -81,7 +81,7 @@ public class Main extends JFrame implements ActionListener{
 		for(int i=0; i<6; i++){
 			for(int j=0; j<7; j++){
 				fieldState[i][j] = 0;
-				field[i][j] = new JLabel();
+				field[i][j] = new RoundJLabel();
 				field[i][j].setSize(fieldSize,fieldSize);
 				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
 				field[i][j].setOpaque(true);
