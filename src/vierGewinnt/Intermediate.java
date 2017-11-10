@@ -4,7 +4,7 @@ package vierGewinnt;
 public class Intermediate {
 	public static int mediumColumn(int[][] fieldState){
 		for(int i = 0; i<6; i++) {
-			int row = Main.row(i, fieldState);
+			int row = Utility.row(i, fieldState);
 			if(row<5) {
 				fieldState[row][i] = 2;
 				ConnectFourLib.printSpielfeld(System.out, fieldState);
@@ -17,7 +17,7 @@ public class Intermediate {
 			}
 		}
 		for(int i = 0; i<6; i++) {
-			int row = Main.row(i, fieldState);
+			int row = Utility.row(i, fieldState);
 			if(row<5) {
 				fieldState[row][i] = 1;
 				ConnectFourLib.printSpielfeld(System.out, fieldState);
@@ -33,7 +33,7 @@ public class Intermediate {
 		int row = 6;
 		while(row > 5) {
 			column = (int) Math.floor(Math.random()*6);
-			row = Main.row(column, fieldState);
+			row = Utility.row(column, fieldState);
 		}
 		return column;
 	}
