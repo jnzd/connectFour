@@ -66,6 +66,7 @@ public class Utility {
 	public static void restart(){
 		for (int n=0; n<7; n++){
 			UI.selectors[n].setBackground(UI.selectorColor);
+			UI.selectors[n].setVisible(true);
 		}
 		for(int n=0; n<6; n++){
 			for(int j=0; j<7; j++){

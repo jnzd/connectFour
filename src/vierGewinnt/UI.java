@@ -14,7 +14,6 @@ public class UI extends JFrame{
 	static JLabelRound[][] field = new JLabelRound[6][7]; // graphical field
 	static int[][] fieldState = new int [6][7]; // field state in integers
 	static JButtonArrow[] selectors = new JButtonArrow[7];
-	//static JButton[] difficultyButtons = new JButton[3];
 	static JButton restart;
 	static JLabel background = new JLabel();
 	private int fieldSize = 100;
@@ -34,18 +33,6 @@ public class UI extends JFrame{
 		super("connectFour");
 		connectFour = new JPanel();
 		connectFour.setLayout(null);
-		// setup difficulty menu
-		/*for(int i=0; i<3; i++) {
-			difficultyButtons[i]= new JButton();
-			difficultyButtons[i].setBackground(difficultyBackground);
-			difficultyButtons[i].setSize(difficultyButtonWidth, difficultyButtonHeight);
-			difficultyButtons[i].setLocation((Main.windowWidth/2)-(difficultyButtonWidth/2), Main.windowHeight/2-difficultyButtonHeight+(difficultyButtonHeight+20)*i-100);
-			difficultyButtons[i].addActionListener(new TheActionListener());
-			connectFour.add(difficultyButtons[i]);
-		}
-		difficultyButtons[0].setText("leicht");
-		difficultyButtons[1].setText("mittel");
-		difficultyButtons[2].setText("schwer");*/
 		// setup selector buttons for columns
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButtonArrow();
