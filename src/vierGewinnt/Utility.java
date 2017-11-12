@@ -2,10 +2,7 @@ package vierGewinnt;
 
 import java.awt.Color;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public class Utility {
 	static int level;
@@ -62,6 +59,42 @@ public class Utility {
 			}else{
 				JOptionPane.showMessageDialog(UI.connectFour, "Der Computer hat gewonnen!");				
 			}
+			restart();
 		}	
+	}
+
+/******************************************************************************************************/
+	public static void start(int difficulty){
+		Utility.level = difficulty;
+		for(int n=0; n<3; n++) {
+			UI.difficultyButtons[n].setVisible(false);
+		}
+		for (int n=0; n<7; n++){
+			UI.selectors[n].setVisible(true);
+		}
+		for(int n=0; n<6; n++){
+			for(int j=0; j<7; j++){
+				UI.field[n][j].setVisible(true);
+			}
+		}
+		UI.restart.setVisible(true);
+	}
+/******************************************************************************************************/
+	public static void restart(){
+		for(int n=0; n<3; n++) {
+			UI.difficultyButtons[n].setVisible(true);
+		}
+		for (int n=0; n<7; n++){
+			UI.selectors[n].setVisible(false);
+			UI.selectors[n].setBackground(UI.selectorColor);
+		}
+		for(int n=0; n<6; n++){
+			for(int j=0; j<7; j++){
+				UI.field[n][j].setVisible(false);
+				UI.fieldState[n][j] = 0;
+				UI.field[n][j].setBackground(UI.empty);
+			}
+		}
+		UI.restart.setVisible(false);
 	}
 }

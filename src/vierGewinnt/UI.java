@@ -1,21 +1,16 @@
 package vierGewinnt;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-public class UI extends JFrame  implements ActionListener{
+public class UI extends JFrame{
 	static RoundJLabel[][] field = new RoundJLabel[6][7];
 	static int[][] fieldState = new int [6][7];
 	static JButton[] selectors = new JButton[7];
-	static JButton easy;
-	static JButton medium;
-	static JButton hard = new JButton();
+	static JButton[] difficultyButtons = new JButton[3];
 	static JButton restart;
 	private int fieldSize = 100;
 	private int buttonSize = 80;
@@ -31,44 +26,33 @@ public class UI extends JFrame  implements ActionListener{
 	
 	public UI(){
 		super("connectFour");
-		difficulty = new JPanel();
 		connectFour = new JPanel();
-		difficulty.setLayout(null);
 		connectFour.setLayout(null);
 		/**
 		 *  difficulty menu
 		 */
-		easy = new JButton();
-		easy.setText("leicht");
-		easy.setBackground(difficultyBackground);
-		easy.setSize(difficultyButtonWidth, difficultyButtonHeight);
-		easy.setLocation((Main.windowWidth/2)-(difficultyButtonWidth/2), (130-(difficultyButtonHeight/2)));
-		easy.addActionListener(this);
-		difficulty.add(easy);
-		medium = new JButton();
-		medium.setText("mittel");
-		medium.setBackground(difficultyBackground);
-		medium.setSize(difficultyButtonWidth, difficultyButtonHeight);
-		medium.setLocation((Main.windowWidth/2)-(difficultyButtonWidth/2), ((Main.windowHeight-50)/3)*1-(difficultyButtonHeight/2)+130);
-		medium.addActionListener(this);
-		difficulty.add(medium);	
-		hard = new JButton();
-		hard.setText("schwer");
-		hard.setBackground(difficultyBackground);
-		hard.setSize(difficultyButtonWidth, difficultyButtonHeight);
-		hard.setLocation((Main.windowWidth/2)-(difficultyButtonWidth/2), ((Main.windowHeight-50)/3)*2-(difficultyButtonHeight/2)+130);
-		hard.addActionListener(this);
-		difficulty.add(hard);
+		for(int i=0; i<3; i++) {
+			difficultyButtons[i]= new JButton();
+			difficultyButtons[i].setBackground(difficultyBackground);
+			difficultyButtons[i].setSize(difficultyButtonWidth, difficultyButtonHeight);
+			difficultyButtons[i].setLocation((Main.windowWidth/2)-(difficultyButtonWidth/2), ((Main.windowHeight-50)/3)*i-(difficultyButtonHeight/2)+130);
+			difficultyButtons[i].addActionListener(new TheActionListener());
+			connectFour.add(difficultyButtons[i]);
+		}
+
+		difficultyButtons[0].setText("leicht");
+		difficultyButtons[1].setText("mittel");
+		difficultyButtons[2].setText("schwer");
 		/**
 		 * playing field
 		 * selector buttons
 		 */
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButton();
-			selectors[i].setVisible(true);
+			selectors[i].setVisible(false);
 			selectors[i].setSize(buttonSize, buttonSize);
 			selectors[i].setLocation(110+(buttonSize+30)*i,60);
-			selectors[i].addActionListener(this);
+			selectors[i].addActionListener(new TheActionListener());
 			selectors[i].setBackground(selectorColor);
 			connectFour.add(selectors[i]);
 		}
@@ -84,6 +68,7 @@ public class UI extends JFrame  implements ActionListener{
 				field[i][j].setOpaque(true);
 				field[i][j].setBackground(empty);
 				field[i][j].setBorder(new LineBorder (Color.darkGray));
+				field[i][j].setVisible(false);
 				connectFour.add(field[i][j]);
 			}
 		}
@@ -95,52 +80,9 @@ public class UI extends JFrame  implements ActionListener{
 		restart.setBackground(difficultyBackground);
 		restart.setSize(difficultyButtonWidth/2, difficultyButtonHeight/2);
 		restart.setLocation((Main.windowWidth/2)-(difficultyButtonWidth/4), Main.windowHeight-100);
-		restart.addActionListener(this);
+		restart.addActionListener(new TheActionListener());
+		restart.setVisible(false);
 		connectFour.add(restart);
-		setContentPane(difficulty);
-	}
-	public void actionPerformed(ActionEvent Click){
-		Object Source = Click.getSource();
-		if(Source == easy){
-			start(0);
-		}
-		if(Source == medium){
-			start(1);
-		}
-		if(Source == hard){
-			start(2);
-		}
-		if(Source == restart){
-			restart();
-		}
-		for(int i=0; i<7; i++){
-			if(Source == selectors[i]){
-				Utility.playerTurn(i);
-				Utility.computerTurn(Utility.level);
-			}
-		}
-	}
-/******************************************************************************************************/
-	public void start(int difficulty){
-		Utility.level = difficulty;
-		this.setContentPane(connectFour);
-		connectFour.revalidate();
-		connectFour.repaint();
-	}
-/******************************************************************************************************/
-	public void restart(){
-		this.setContentPane(difficulty);
-		difficulty.revalidate();
-		difficulty.repaint();
-		for (int i=0; i<7; i++){
-			selectors[i].setVisible(true);
-			selectors[i].setBackground(selectorColor);
-		}
-		for(int i=0; i<6; i++){
-			for(int j=0; j<7; j++){
-				fieldState[i][j] = 0;
-				field[i][j].setBackground(empty);
-			}
-		}
+		setContentPane(connectFour);
 	}
 }
