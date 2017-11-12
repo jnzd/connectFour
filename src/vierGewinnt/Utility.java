@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Utility {
@@ -56,7 +57,11 @@ public class Utility {
 		}
 		boolean win = ConnectFourLib.gewonnen(who, UI.fieldState);
 		if(win){
-			System.out.println(who + " hat gewonnen");
+			if(who==1) {
+				JOptionPane.showMessageDialog(UI.connectFour, "Du hast gewonnen!");
+			}else{
+				JOptionPane.showMessageDialog(UI.connectFour, "Der Computer hat gewonnen!");				
+			}
 		}	
 	}
 }
