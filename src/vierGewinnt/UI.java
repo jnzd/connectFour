@@ -37,8 +37,8 @@ public class UI extends JFrame{
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButtonArrow();
 			selectors[i].setVisible(true);
-			selectors[i].setSize(buttonSize, buttonSize);
-			selectors[i].setLocation(110+(buttonSize+30)*i,60);
+			selectors[i].setSize(buttonSize, 3*buttonSize/4);
+			selectors[i].setLocation(120+(buttonSize+30)*i,60);
 			selectors[i].addActionListener(new TheActionListener());
 			selectors[i].setBackground(selectorColor);
 			connectFour.add(selectors[i]);

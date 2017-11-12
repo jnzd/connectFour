@@ -1,7 +1,10 @@
 package vierGewinnt;
 
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 public class Utility {
@@ -86,12 +89,18 @@ public class Utility {
 				"Wähle die Schwierigkeitsstufe!",
 				"Schwierigkeit",
 				JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
+				JOptionPane.PLAIN_MESSAGE,
 				null,
 				options,
 				options[0]);
+		
 		if(n==0||n==1||n==2) {
 			Utility.level = n;
+			System.out.println(n);
+		}
+		if(n==0||n==1||n==2) {
+			Utility.level = n;
+			System.out.println(n);
 		}
 	}
 }

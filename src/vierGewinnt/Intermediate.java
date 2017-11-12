@@ -7,7 +7,6 @@ public class Intermediate {
 			int row = Utility.row(i, fieldState);
 			if(row<5) {
 				fieldState[row][i] = 2;
-				ConnectFourLib.printSpielfeld(System.out, fieldState);
 				if(ConnectFourLib.gewonnen(2, fieldState)){
 					fieldState[row][i] = 0;			
 					return i;
@@ -20,7 +19,6 @@ public class Intermediate {
 			int row = Utility.row(i, fieldState);
 			if(row<5) {
 				fieldState[row][i] = 1;
-				ConnectFourLib.printSpielfeld(System.out, fieldState);
 				if(ConnectFourLib.gewonnen(1, fieldState)){
 					fieldState[row][i] = 0;			
 					return i;

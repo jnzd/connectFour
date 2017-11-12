@@ -27,10 +27,10 @@ public class JButtonArrow extends JButton {
 		g.setColor(getBackground());
 		int width = getWidth();
 		int height = getHeight();
-		int[] xs = {width/3, 2, width/2, width-3, width*2/3, width*2/3, width/3, width/3};
-        int[] ys = {height/2, height/2, height-2, height/2, height/2, 1, 1, height/2};
+		int[] xs = {2, width-2, width/2, 2};
+        int[] ys = {2, 2, height-2, 2};
         super.paintComponent(g);
-		g.fillPolygon(xs, ys, 8);
+		g.fillPolygon(xs, ys, 4);
 	}
 	private static class ArrowBorder implements Border {
 		private Color color;
@@ -46,10 +46,10 @@ public class JButtonArrow extends JButton {
 	    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
 			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	    	g.setColor(color);
-	    	int[] xs = {x+(width/3), x+2, x+(width/2), x+width-3, x+(width*2/3), x+(width*2/3), x+(width/3), x+(width/3)};
-	        int[] ys = {y+(height/2), y+(height/2), y+height-2, y+(height/2), y+(height/2), y+1, y+1, y+(height/2)};
+			int[] xs = {x+2, x+width-2, x+width/2, x+2};
+	        int[] ys = {y+2, y+2, y+height-2, y+2};
 	        ((Graphics2D) g).setStroke(new BasicStroke(3));
-	        g.drawPolyline(xs, ys, 8);
+	        g.drawPolyline(xs, ys, 4);
 	    }
 	}
 }
