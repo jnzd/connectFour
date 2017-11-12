@@ -12,14 +12,14 @@ public class UI extends JFrame{
 	//initialize variables
 	static JLabelRound[][] field = new JLabelRound[6][7]; // graphical field
 	static int[][] fieldState = new int [6][7]; // field state in integers
-	static JButton[] selectors = new JButton[7];
+	static JButtonArrow[] selectors = new JButtonArrow[7];
 	static JButton[] difficultyButtons = new JButton[3];
 	static JButton restart;
 	static JLabel background = new JLabel();
 	private int fieldSize = 100;
 	private int buttonSize = 80;
-	private int difficultyButtonWidth = 500;
-	private int difficultyButtonHeight = 100;
+	private int difficultyButtonWidth = 300;
+	private int difficultyButtonHeight = 80;
 	static JPanel connectFour;
 	static JPanel difficulty;
 	static Color player = Color.red;
@@ -38,7 +38,7 @@ public class UI extends JFrame{
 			difficultyButtons[i]= new JButton();
 			difficultyButtons[i].setBackground(difficultyBackground);
 			difficultyButtons[i].setSize(difficultyButtonWidth, difficultyButtonHeight);
-			difficultyButtons[i].setLocation((Main.windowWidth/2)-(difficultyButtonWidth/2), ((Main.windowHeight-50)/3)*i-(difficultyButtonHeight/2)+130);
+			difficultyButtons[i].setLocation((Main.windowWidth/2)-(difficultyButtonWidth/2), Main.windowHeight/2-difficultyButtonHeight+(difficultyButtonHeight+20)*i-100);
 			difficultyButtons[i].addActionListener(new TheActionListener());
 			connectFour.add(difficultyButtons[i]);
 		}
@@ -47,7 +47,7 @@ public class UI extends JFrame{
 		difficultyButtons[2].setText("schwer");
 		// setup selector buttons for columns
 		for (int i=0; i<7; i++){
-			selectors[i] = new JButton();
+			selectors[i] = new JButtonArrow();
 			selectors[i].setVisible(false);
 			selectors[i].setSize(buttonSize, buttonSize);
 			selectors[i].setLocation(110+(buttonSize+30)*i,60);
@@ -62,9 +62,7 @@ public class UI extends JFrame{
 				field[i][j] = new JLabelRound();
 				field[i][j].setSize(fieldSize,fieldSize);
 				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
-				//field[i][j].setOpaque(true);
 				field[i][j].setBackground(empty);
-				//field[i][j].setBorder(new LineBorder (Color.darkGray));
 				field[i][j].setVisible(false);
 				connectFour.add(field[i][j]);
 			}
