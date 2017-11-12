@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 public class UI extends JFrame{
+	
+	//initialize variables
 	static RoundJLabel[][] field = new RoundJLabel[6][7];
 	static int[][] fieldState = new int [6][7];
 	static JButton[] selectors = new JButton[7];
@@ -28,9 +30,7 @@ public class UI extends JFrame{
 		super("connectFour");
 		connectFour = new JPanel();
 		connectFour.setLayout(null);
-		/**
-		 *  difficulty menu
-		 */
+		// setup difficulty menu
 		for(int i=0; i<3; i++) {
 			difficultyButtons[i]= new JButton();
 			difficultyButtons[i].setBackground(difficultyBackground);
@@ -39,14 +39,10 @@ public class UI extends JFrame{
 			difficultyButtons[i].addActionListener(new TheActionListener());
 			connectFour.add(difficultyButtons[i]);
 		}
-
 		difficultyButtons[0].setText("leicht");
 		difficultyButtons[1].setText("mittel");
 		difficultyButtons[2].setText("schwer");
-		/**
-		 * playing field
-		 * selector buttons
-		 */
+		// setup selector buttons for columns
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButton();
 			selectors[i].setVisible(false);
@@ -56,9 +52,7 @@ public class UI extends JFrame{
 			selectors[i].setBackground(selectorColor);
 			connectFour.add(selectors[i]);
 		}
-		/**
-		 * slots
-		 */
+		// setup slots for playing field
 		for(int i=0; i<6; i++){
 			for(int j=0; j<7; j++){
 				fieldState[i][j] = 0;
@@ -72,9 +66,7 @@ public class UI extends JFrame{
 				connectFour.add(field[i][j]);
 			}
 		}
-		/**
-		 * restart
-		 */
+		// setup restart button
 		restart = new JButton();
 		restart.setText("restart");
 		restart.setBackground(difficultyBackground);
