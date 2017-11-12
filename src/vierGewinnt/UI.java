@@ -9,8 +9,8 @@ import javax.swing.border.LineBorder;
 public class UI extends JFrame{
 	
 	//initialize variables
-	static RoundJLabel[][] field = new RoundJLabel[6][7];
-	static int[][] fieldState = new int [6][7];
+	static RoundJLabel[][] field = new RoundJLabel[6][7]; // graphical field
+	static int[][] fieldState = new int [6][7]; // field state in integers
 	static JButton[] selectors = new JButton[7];
 	static JButton[] difficultyButtons = new JButton[3];
 	static JButton restart;
