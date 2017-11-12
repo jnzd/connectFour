@@ -78,6 +78,7 @@ public class Utility {
 			}
 		}
 		UI.restart.setVisible(true);
+		UI.background.setVisible(true);
 	}
 /******************************************************************************************************/
 	public static void restart(){
@@ -96,5 +97,6 @@ public class Utility {
 			}
 		}
 		UI.restart.setVisible(false);
+		UI.background.setVisible(false);
 	}
 }

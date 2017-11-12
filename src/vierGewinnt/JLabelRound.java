@@ -9,9 +9,9 @@ import java.awt.RenderingHints;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-public class RoundJLabel extends JLabel {
+public class JLabelRound extends JLabel {
 	private RoundBorder border;
-	public RoundJLabel() {
+	public JLabelRound() {
 		super();
 		init();
 	}
