@@ -62,41 +62,35 @@ public class Utility {
 			restart();
 		}	
 	}
-
-/******************************************************************************************************/
-	public static void start(int difficulty){
-		Utility.level = difficulty;
-		for(int n=0; n<3; n++) {
-			UI.difficultyButtons[n].setVisible(false);
-		}
-		for (int n=0; n<7; n++){
-			UI.selectors[n].setVisible(true);
-		}
-		for(int n=0; n<6; n++){
-			for(int j=0; j<7; j++){
-				UI.field[n][j].setVisible(true);
-			}
-		}
-		UI.restart.setVisible(true);
-		UI.background.setVisible(true);
-	}
 /******************************************************************************************************/
 	public static void restart(){
-		for(int n=0; n<3; n++) {
-			UI.difficultyButtons[n].setVisible(true);
-		}
 		for (int n=0; n<7; n++){
-			UI.selectors[n].setVisible(false);
 			UI.selectors[n].setBackground(UI.selectorColor);
 		}
 		for(int n=0; n<6; n++){
 			for(int j=0; j<7; j++){
-				UI.field[n][j].setVisible(false);
 				UI.fieldState[n][j] = 0;
 				UI.field[n][j].setBackground(UI.empty);
 			}
 		}
-		UI.restart.setVisible(false);
-		UI.background.setVisible(false);
+		startOptions();
+	}
+/******************************************************************************************************/
+	public static void startOptions() {
+		
+		Object[] options = {"Leicht",
+			                "Mittel",
+			                "Schwer"};
+		int n = JOptionPane.showOptionDialog(UI.connectFour,
+				"Wähle die Schwierigkeitsstufe!",
+				"Schwierigkeit",
+				JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				options,
+				options[0]);
+		if(n==0||n==1||n==2) {
+			Utility.level = n;
+		}
 	}
 }

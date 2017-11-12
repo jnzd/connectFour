@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -13,7 +14,7 @@ public class UI extends JFrame{
 	static JLabelRound[][] field = new JLabelRound[6][7]; // graphical field
 	static int[][] fieldState = new int [6][7]; // field state in integers
 	static JButtonArrow[] selectors = new JButtonArrow[7];
-	static JButton[] difficultyButtons = new JButton[3];
+	//static JButton[] difficultyButtons = new JButton[3];
 	static JButton restart;
 	static JLabel background = new JLabel();
 	private int fieldSize = 100;
@@ -34,7 +35,7 @@ public class UI extends JFrame{
 		connectFour = new JPanel();
 		connectFour.setLayout(null);
 		// setup difficulty menu
-		for(int i=0; i<3; i++) {
+		/*for(int i=0; i<3; i++) {
 			difficultyButtons[i]= new JButton();
 			difficultyButtons[i].setBackground(difficultyBackground);
 			difficultyButtons[i].setSize(difficultyButtonWidth, difficultyButtonHeight);
@@ -44,11 +45,11 @@ public class UI extends JFrame{
 		}
 		difficultyButtons[0].setText("leicht");
 		difficultyButtons[1].setText("mittel");
-		difficultyButtons[2].setText("schwer");
+		difficultyButtons[2].setText("schwer");*/
 		// setup selector buttons for columns
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButtonArrow();
-			selectors[i].setVisible(false);
+			selectors[i].setVisible(true);
 			selectors[i].setSize(buttonSize, buttonSize);
 			selectors[i].setLocation(110+(buttonSize+30)*i,60);
 			selectors[i].addActionListener(new TheActionListener());
@@ -63,7 +64,7 @@ public class UI extends JFrame{
 				field[i][j].setSize(fieldSize,fieldSize);
 				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
 				field[i][j].setBackground(empty);
-				field[i][j].setVisible(false);
+				field[i][j].setVisible(true);
 				connectFour.add(field[i][j]);
 			}
 		}
@@ -74,7 +75,7 @@ public class UI extends JFrame{
 		restart.setSize(difficultyButtonWidth/2, difficultyButtonHeight/2);
 		restart.setLocation((Main.windowWidth/2)-(difficultyButtonWidth/4), Main.windowHeight-100);
 		restart.addActionListener(new TheActionListener());
-		restart.setVisible(false);
+		restart.setVisible(true);
 		connectFour.add(restart);
 		// background for slots
 		background.setSize(800, 690);
@@ -82,9 +83,10 @@ public class UI extends JFrame{
 		background.setOpaque(true);
 		background.setBackground(backgroundColor);
 		background.setBorder(new LineBorder(Color.black, 3));
-		background.setVisible(false);
+		background.setVisible(true);
 		connectFour.add(background);
 		
 		setContentPane(connectFour);
+		Utility.startOptions();
 	}
 }

@@ -6,11 +6,11 @@ import java.awt.event.ActionListener;
 public class TheActionListener implements ActionListener {
 	public void actionPerformed(ActionEvent Click){
 		Object Source = Click.getSource();
-		for(int i=0; i<3; i++){
+		/*for(int i=0; i<3; i++){
 			if(Source == UI.difficultyButtons[i]){
 				Utility.start(i);
 			}
-		}
+		}*/
 		if(Source == UI.restart){
 			Utility.restart();
 		}
