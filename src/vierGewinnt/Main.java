@@ -3,8 +3,8 @@ package vierGewinnt;
 import javax.swing.JFrame;
 
 public class Main extends JFrame{
-	static int windowWidth = 1000;
-	static int windowHeight = 1000;
+	static int windowWidth = 800;
+	static int windowHeight = 900;
 /******************************************************************************************************/
 	public static void main(String[] args){
 		UI window = new UI();

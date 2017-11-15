@@ -20,6 +20,7 @@ public class JLabelRound extends JLabel {
 		setBorder(border);
 		setBackground(Color.white);
 	}
+	@Override
 	protected void paintComponent(Graphics g) {
 		((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setColor(getBackground());

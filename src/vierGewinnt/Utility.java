@@ -14,7 +14,7 @@ public class Utility {
 		int row = row(i, UI.fieldState);
 		move(row,i,1);
 	}
-/******************************************************************************************************/
+	/******************************************************************************************************/
 	public static void computerTurn(int difficulty){
 		if(difficulty == 0){
 			int column = 0;
@@ -63,7 +63,17 @@ public class Utility {
 				JOptionPane.showMessageDialog(UI.connectFour, "Der Computer hat gewonnen!");				
 			}
 			restart();
-		}	
+		}
+		boolean tie = true;
+		for(int x=0; x<7; x++) {
+			if(UI.selectors[x].isVisible()){
+				tie = false;
+			}
+		}
+		if(tie){
+			JOptionPane.showMessageDialog(UI.connectFour, "Das Spiel ist untentschieden!");
+			restart();
+		}
 	}
 /******************************************************************************************************/
 	public static void restart(){
@@ -81,12 +91,11 @@ public class Utility {
 	}
 /******************************************************************************************************/
 	public static void startOptions() {
-		
 		Object[] options = {"Leicht",
 			                "Mittel",
 			                "Schwer"};
 		int n = JOptionPane.showOptionDialog(UI.connectFour,
-				"Wähle die Schwierigkeitsstufe!",
+				"Wï¿½hle die Schwierigkeitsstufe!",
 				"Schwierigkeit",
 				JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.PLAIN_MESSAGE,
@@ -94,10 +103,6 @@ public class Utility {
 				options,
 				options[0]);
 		
-		if(n==0||n==1||n==2) {
-			Utility.level = n;
-			System.out.println(n);
-		}
 		if(n==0||n==1||n==2) {
 			Utility.level = n;
 			System.out.println(n);

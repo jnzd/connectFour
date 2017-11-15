@@ -1,6 +1,8 @@
 package vierGewinnt;
 
 import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,23 +24,25 @@ public class UI extends JFrame{
 	private int difficultyButtonHeight = 80;
 	static JPanel connectFour;
 	static JPanel difficulty;
-	static Color player = Color.red;
-	static Color computer = Color.yellow;
+	static Color player = Color.decode("#00f2ff");
+	static Color computer = Color.decode("#ff9900");
 	static Color selectorColor = Color.orange;
 	static Color empty = Color.gray;
-	static Color difficultyBackground = Color.gray;
-	static Color backgroundColor = Color.decode("#1466FF");
+	static Color difficultyBackground = Color.decode("#000000");
+	static Color backgroundColor = Color.decode("#000000");
+	static Color JPanelbg = Color.decode("#ffffff");
 	
 	public UI(){
 		super("connectFour");
 		connectFour = new JPanel();
 		connectFour.setLayout(null);
+		connectFour.setBackground(JPanelbg);
 		// setup selector buttons for columns
 		for (int i=0; i<7; i++){
 			selectors[i] = new JButtonArrow();
 			selectors[i].setVisible(true);
 			selectors[i].setSize(buttonSize, 3*buttonSize/4);
-			selectors[i].setLocation(120+(buttonSize+30)*i,60);
+			selectors[i].setLocation(25+(buttonSize+30)*i,25);
 			selectors[i].addActionListener(new TheActionListener());
 			selectors[i].setBackground(selectorColor);
 			connectFour.add(selectors[i]);
@@ -49,7 +53,7 @@ public class UI extends JFrame{
 				fieldState[i][j] = 0;
 				field[i][j] = new JLabelRound();
 				field[i][j].setSize(fieldSize,fieldSize);
-				field[i][j].setLocation((fieldSize+10)*j+100, (fieldSize+10)*(5-i)+175);
+				field[i][j].setLocation((fieldSize+10)*j+20, (fieldSize+10)*(5-i)+115);
 				field[i][j].setBackground(empty);
 				field[i][j].setVisible(true);
 				connectFour.add(field[i][j]);
@@ -63,10 +67,12 @@ public class UI extends JFrame{
 		restart.setLocation((Main.windowWidth/2)-(difficultyButtonWidth/4), Main.windowHeight-100);
 		restart.addActionListener(new TheActionListener());
 		restart.setVisible(true);
+		restart.setForeground(Color.white);
+		restart.setFont(new Font("Arial", Font.PLAIN, 36));
 		connectFour.add(restart);
 		// background for slots
 		background.setSize(800, 690);
-		background.setLocation(80, 155);
+		background.setLocation(-3, 95);
 		background.setOpaque(true);
 		background.setBackground(backgroundColor);
 		background.setBorder(new LineBorder(Color.black, 3));
